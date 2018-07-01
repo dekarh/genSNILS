@@ -73,15 +73,13 @@ IN_SNILS = ['СНИЛС', 'СтраховойНомер', 'Страховой_н
 
 
 def checksum(snils_dig):                         # Вычисляем 2 последних цифры СНИЛС по первым 9-ти
-    snils = '{0:09d}'.format(snils_dig)
-
     def snils_csum(snils):
         k = range(9, 0, -1)
         pairs = zip(k, [int(x) for x in snils.replace('-', '').replace(' ', '')])
         return sum([k * v for k, v in pairs])
 
+    snils = '{0:09d}'.format(snils_dig)
     csum = snils_csum(snils)
-
     while csum > 101:
         csum %= 101
     if csum in (100, 101):
